@@ -3,7 +3,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-unsigned int count_conflicts(const std::vector<std::vector<int>> &sudoku)
+inline unsigned int count_conflicts(const std::vector<std::vector<int>> &sudoku) noexcept
 {
     unsigned short counter[3][9][9] = {};
 
