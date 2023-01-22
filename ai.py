@@ -29,7 +29,8 @@ def get_gene_space(sudoku):
                 res.append(
                     list(set(range(1, 10)) - (
                         set(get_block(sudoku, i // 3, j // 3)).union(
-                            set(get_row(sudoku, i))).union(set(get_col(sudoku, j)))
+                            set(get_row(sudoku, i))).union(
+                                set(get_col(sudoku, j)))
                     ))
                 )
 
@@ -38,7 +39,11 @@ def get_gene_space(sudoku):
 
 def get_holes(sudoku):
     return [
-        (i, j) for i in range(len(sudoku)) for j in range(len(sudoku[0])) if sudoku[i][j] == 0
+        (i, j) for i in range(
+            len(sudoku)
+        ) for j in range(
+            len(sudoku[0])
+        ) if sudoku[i][j] == 0
     ]
 
 
@@ -118,7 +123,9 @@ class AI:
             'mutation_type': 'random',
             'crossover_type': 'single_point',
             'fitness_func': fitness,
-            'stop_criteria': ['reach_1', f'saturate_{self.number_of_generations // 4}'],
+            'stop_criteria': [
+                'reach_1', f'saturate_{self.number_of_generations // 4}'
+            ],
             'parallel_processing': ['process', self.number_of_processes]
         }
 
@@ -149,6 +156,6 @@ if __name__ == '__main__':
             show_progress=True,
             plot_fitness=True,
             print_final_conflicts=True,
-            population=3000,
+            population=1000,
             keep=1
         ).solve(problem_file.read()))
