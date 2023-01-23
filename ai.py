@@ -30,7 +30,7 @@ def get_gene_space(sudoku):
                     list(set(range(1, 10)) - (
                         set(get_block(sudoku, i // 3, j // 3)).union(
                             set(get_row(sudoku, i))).union(
-                                set(get_col(sudoku, j)))
+                            set(get_col(sudoku, j)))
                     ))
                 )
 
@@ -83,14 +83,14 @@ def fitness(solution, _):
 
 class AI:
     def __init__(
-        self,
-        plot_fitness=False,
-        show_progress=False,
-        print_final_conflicts=False,
-        number_of_generations=2000,
-        number_of_parent_mating=2,
-        population=500,
-        keep=1,
+            self,
+            plot_fitness=False,
+            show_progress=False,
+            print_final_conflicts=False,
+            number_of_generations=2000,
+            number_of_parent_mating=2,
+            population=500,
+            keep=1,
         number_of_processes=4
     ):
         self.number_of_generations = number_of_generations
@@ -131,8 +131,14 @@ class AI:
 
         if self.show_progress:
             with tqdm.tqdm(total=self.number_of_generations) as progress_bar:
+                def on_generation(ga_instance):
+                    solution, _, _ = ga_instance.best_solution()
+                    fill(sudoku, solution, holes)
+                    progress_bar.set_description(f'C = {count_conflicts_py(sudoku)}')
+                    progress_bar.update(1)
+
                 ga_instance = pygad.GA(
-                    on_generation=lambda _: progress_bar.update(1),
+                    on_generation=on_generation,
                     **ga_params
                 )
                 ga_instance.run()
