@@ -7,7 +7,7 @@ kiwisolver==1.4.4
 matplotlib==3.6.3
 numpy==1.23.5
 packaging==23.0
-Pillow==10.2.0
+Pillow==10.3.0
 pycodestyle==2.10.0
 pygad==2.18.1
 pyparsing==3.0.9
